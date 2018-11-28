@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>诺心蛋糕店</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/product-search.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <style>[v-cloak]{display:none;}</style>
+</head>
+<body>
+  <div class="article">
+    <div class="header">
+      <!--登录/注册-->
+      <div class=header_top>
+        <div class=header_top_right>
+          <div v-if="signout" class="notLogin">
+            <a href="#"  @click.prevent="goLogin">登录</a>
+            <span>/</span>
+            <a href="http://localhost:3000/register.html">注册</a>
+          </div>
+          <div v-if="isLogin" class="isLogin" v-cloak> 
+            <span>欢迎您，</span>
+            <span v-text="uname"></span>
+            <a href="#" class="signout" @click.prevent="signOut">退出</a>
+            <a href="#" @click.prevent="myIndent">我的订单</a>
+          </div>
+          <p class="header_top_wechat">
+            <img src="img/header/wechat.png" class="top_wechat_img">
+            微信
+          </p>
+        </div>
+      </div>
+      <!--定位和logo-->
+      <div class="header_middle">
+        <div class="header_location">
+          <a href="#" class="location">
+            <span class="one">成都</span>
+            <span class="two">查询地址是否可以配送</span>
+          </a>
+        </div>
+        <div class="header_logo">
+          <img src="img/header/logo_new.png">
+        </div>
+        <div class="header_search">
+          <input type="text" placeholder="雪域牛乳芝士" class="header_search_input" v-model="search_text" @keyup.13="search">
+          <a href="#" class="one" @click.prevent="search"></a>
+          <a href="#" class="two" @click.prevent="shoppingCart">
+              <span :class="carCount==''?'hide':'showCount'" v-text="carCount"></span>
+          </a>
+        </div>
+      </div>
+      <!--nav-->
+      <nav>
+        <ul class="nav_list">
+          <li>
+            <a href="#" class="nav_list_first" @click.prevent="navItemOne">首页</a>
+          </li>
+          <li>
+            <a href="#" class="nav_list_two"  @click.prevent="navItemTwo">蛋糕</a>
+          </li>
+          <li>
+            <a href="#" class="nav_list_three" @click.prevent="navItemThree">吐司</a>
+          </li>
+          <li>
+            <a href="#" class="nav_list_four" @click.prevent="navItemFour">礼品</a>
+          </li>
+          <li>
+            <div class="nav_area">
+              <a href="#">企业专区</a>
+              <ul class="nav_area_list">
+                <li><a href="#">企业采购</a></li>
+                <li><a href="#">大客户区</a></li>
+                <li><a href="#">福利券区</a></li>
+                <li><a href="#">合作专区</a></li>
+                <li><a href="#">小食盒区</a></li>
+            </ul>
+            </div>
+          </li>
+          <li>
+            <div class="nav_user">
+              <a href="#" @click.prevent="navItemFive">我的诺心</a>
+              <ul class="nav_user_list">
+                <li><a href="#" @click.prevent="CLUB">LECLUB</a></li>
+                <li><a href="#" @click.prevent="myIndent">我的订单</a></li>
+                <li><a href="#">找回密码</a></li>
+                <li><a href="#" @click.prevent="card">礼卡专区</a></li>
+            </ul>
+            </div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="main">
+      <div v-show="haveCake" class="allCake">
+        <a href="http://localhost:3000/product-cake.html">显示全部蛋糕</a>
+      </div>
+      <!-- 没有蛋糕 -->
+      <div v-show="showTitle" class="cakeTitle">
+        <table class="cakeSelect">
+          <tr>
+            <td>
+                <span>口味：</span>
+            </td>
+            <td>
+                <span  :class="cakeSweet===1?'active':''" @click="AllTast">全部</span>
+            </td>
+            <td>
+                <span  :class="cakeSweet===2?'active':''" @click="NyTast">奶油口味</span>
+            </td>
+            <td>
+                <span :class="cakeSweet===3?'active':''" @click="QklTast">巧克力口味</span>
+            </td>
+            <td>
+                <span  :class="cakeSweet===4?'active':''" @click="XgTast">鲜果口味</span>
+            </td>
+            <td>
+                <span  :class="cakeSweet===5?'active':''" @click="MsTast">莫斯口味</span>
+            </td>
+            <td>
+                <span  :class="cakeSweet===6?'active':''" @click="ZsTast">芝士口味</span>
+            </td>            
+          </tr>
+          <tr>
+            <td>
+                <span>规格：</span>
+            </td>
+            <td>
+                <span>全部</span>
+            </td>
+            <td>
+                <span>2-4人食</span>
+            </td>
+            <td>
+                <span>5-8人食</span>
+            </td>
+            <td>
+                <span>10-12人食</span>
+            </td>
+            <td>
+                <span>15-20人食</span>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div v-show="noCake" class="no_cake">
+        <img src="img/product/no_cake.png">
+        <p>抱歉，找不到相关商品。</p>
+      </div>
+       <!-- 有蛋糕 -->
+      <div v-show="showCake" class="cakeBody">
+        <div v-cloak class="pub_product_detail" v-for="cakeItem in cakeList">
+          <div class="pub_product_detail_pic">
+            <a :href="cakeItem.skip_url">
+              <img :src="cakeItem.img_url">
+            </a>
+          </div>
+          <div v-show="loadProText">
+            <a :href="cakeItem.skip_url" class="pub_product_name" v-text="cakeItem.title"></a>
+            <div class="pub_product_tag">
+              <span v-text="cakeItem.tag1" :class="cakeItem.tag1=='' ? 'hide':''"></span>
+              <span v-text="cakeItem.tag2" :class="cakeItem.tag2=='' ? 'hide':''"></span>
+            </div>
+            <div class="pub_product_salary">
+              <p v-text="cakeItem.price"></p>
+              <p class="pub_product_salary_vip" :class="cakeItem.price_vip=='' ? 'hide':''">
+                <img src="../img/index/list/vip.png">
+                <span v-text="cakeItem.price_vip"></span>
+              </p>
+            </div>
+              <a href="#" class="pub_product_shopping_car" @click.prevent="cakeCart(cakeItem.pid)">加入购物车+&nbsp;</a>
+          </div>
+        </div>
+      </div>
+    <!-- 购物车模态框 -->
+      <div v-cloak class="addCart_bg" v-show="cartBg"></div>
+      <div v-cloak class="addCart" v-show="isaddcart">
+        <div class="addCart_hint">
+          <p>诺心蛋糕</p>
+          <p @click="closeCart1">X</p>
+        </div>
+        <div class="addCart_text">
+          <div class="addCart_title">
+            <p v-text="carCake.title"></p>
+            <p v-text=`￥${carCake.price}`></p>
+          </div>
+          <div>
+            <table>
+              <tr>
+                <td>
+                  <p  v-text=`口味：${carCake.taste}`></p>
+                </td>
+                <td>
+                  <p v-text="carCake.spec"></p>
+                </td>
+                <td>
+                  <p>含五套餐具</p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p v-text=`甜度：${carCake.sweet}`></p>
+                </td>
+                <td>
+                  <p v-text="carCake.kg"></p>
+                </td>
+                <td></td>
+              </tr>
+            </table>
+          </div>
+          <div class="addCartNow">
+            <button @click.prevent="goaddCart(carCake.id)">加入购物车</button>
+          </div>
+        </div>
+      </div>
+      <div v-cloak class="addCartSuccess" v-show="success">
+          <div class="addCart_hint">
+            <p>提示信息</p>
+            <p @click="closeCart2">X</p>
+          </div>
+          <div class="cartMessage">
+            <p>加入购物车成功</p>
+          </div>
+          <div class="cartSuccess">
+            <button @click="account">去结算</button>
+          </div>
+      </div>
+    </div>
+    <div v-cloak v-show="loadFooter" class="footer">
+      <!--客服和微信-->
+      <div class="footer_top">
+        <a href="#" class="footer_top_left">在线客服</a>
+        <a href="#" class="footer_top_right">微信
+          <img src="img/footer/wechat.png">
+        </a>
+      </div>
+      <!--客户电话-->
+      <div class="tel">
+        <span>客服电话：4001-578-578 服务时间（08:30-22:30）</span>
+      </div>
+        <!-- nav列表 -->
+      <div class="footr_nav">
+        <p class="footer_nav_list">
+          <a href="">诺心公告</a>
+          <a href="">关于诺心</a>
+          <a href="">联系我们</a>
+          <a href="">客服服务</a>
+          <a href="">食品经营许可证</a>
+          <a href="">生产许可证</a>
+          <a href="">预付费协议</a>
+          <a href="" class="last">上海工商</a>
+        </p>
+      </div>
+      <!-- 公司 -->
+      <div class="add">
+        <p>诺心食品（上海）有限公司&nbsp;&nbsp;&nbsp;上海徐汇区田林路140号28号楼503室&nbsp;&nbsp;客服邮箱：services@lecake.com&nbsp;&nbsp;公司电话：4001-578-578</p>
+      </div>
+      <!-- 版权所有 -->
+      <div class="copy">
+        <p>copyright&copy;2010-2017诺心lecake.com版权所有&nbsp;沪ICP备10211730</p>
+      </div>
+    </div>
+  </div>
+  <script src="js/axios.min.js"></script>
+  <script src="js/qs.min.js"></script>
+  <script src="js/vue.js"></script>
+  <script src="./js/product-search.js"></script>
+</body>
+</html>

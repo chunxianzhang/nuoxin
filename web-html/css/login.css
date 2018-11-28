@@ -1,0 +1,223 @@
+@media screen and (max-width:1200px){
+    body{
+        width:1200px;
+    }
+    .my_modal{
+        width:1200px !important;
+    }
+}
+@media screen and (min-width:1200px){
+    .my_modal{
+       height:980px !important;
+    }
+}
+.header{
+    padding:30px 0;
+    padding-left:10%;
+}
+.main{
+    width:100%;
+    height:520px;
+    background:url(../img/login/login_bg.jpg) no-repeat center;
+    position:relative;
+}
+.reload{
+    display:block;
+    height:100%;
+    width:50%;
+    position:absolute;
+    left:25%;
+    z-index: 1;
+}
+.login{
+    width:380px;
+    padding:25px;
+    box-sizing:border-box;
+    background:rgba(250,250,250,.9);
+    position:absolute;
+    left:56%;
+    top:45px;
+    z-index: 2;
+}
+.login_method{
+    width:100%;
+    display:flex;
+    flex-flow:row nowrap;
+    justify-content: space-between;
+}
+.login_one,.login_two{
+    width:100%;
+    text-align:center;
+    color:#3e3e3e;
+}
+.login_text{
+    line-height:100%;
+    font-size:16px;
+    cursor: pointer;
+}
+.login_one{
+    border-right:1px solid gray;
+}
+.login_text_color{
+    cursor: pointer;
+    line-height:100%;
+    font-size:16px;
+    color:rgb(255,64,1);
+}
+.login_item{
+    width:260px;
+    margin:20px auto 0 auto; 
+}
+.login_two_item{
+    display:none;
+}
+.login_uname,.login_upwd,.login_phone,.login_auth,.login_sms{
+    position:relative;
+}
+.login_uname_text,.login_upwd_text,.login_phone_text,.login_auth_code,.login_sms_code{
+    border:none;
+    outline:none;
+    background:transparent;
+    border-bottom:1px solid lightgray;
+    width:100%;
+    height:30px;
+    box-sizing: border-box;
+    font-size:14px;
+    padding:0 20px;
+}
+.login_auth_code,.login_sms_code{
+    width:60% !important;
+}
+.login_uname:before,.login_upwd:before,.login_phone::before,.login_auth:before,.login_sms:before{
+    content:"";
+    display:block;
+    width:20px;
+    height:20px;
+    position:absolute;
+    left:0;
+    top:7px;
+}
+.login_uname:before,.login_phone::before{
+    background:url(../img/other/icon3.png) no-repeat -50px -11px;
+}
+.login_upwd:before{
+    background:url(../img/other/icon3.png) no-repeat -10px -11px;
+}
+.login_auth:before,.login_sms:before{
+    background:url(../img/other/icon3.png) no-repeat -90px -11px;
+}
+.error_message{
+    display:block;
+    width:100%;
+    height:20px;
+    line-height:20px;
+    color:red;
+    padding-left:20px;
+    margin-bottom:15px;
+}
+.login_auth_code_hint{
+    width:50px;
+    height:30px;
+    float:right;
+    background:lightgray;
+    opacity:.8;
+}
+.login_sms_code_hint{
+    padding:7px 15px;
+    float:right;
+    background:#ff4001;
+    color:white;
+}
+.now_login{
+    width:260px;
+    height:50px;
+    border-radius:2%;
+    background:rgb(255,64,1);
+    border:none;
+    outline:none;
+    color:white;
+    cursor:pointer;
+    font-size:16px;
+    margin-bottom:20px;
+}
+.now_login_active{
+    background:rgb(255,110,1)
+}
+.account_toRegister,.account_null{
+    float:right;
+}
+.account_findUpwd{
+    color:#7a7878;
+}
+.account_toRegister{
+    color:rgb(255,64,1);
+}
+.account_null{
+    color:#3e3e3e;
+}
+.other_text{
+    width:260px;
+    display:flex;
+    flex-flow:row nowrap;
+    justify-content:space-between;
+    margin:20px auto;
+}
+.other_text *{
+    cursor: default;
+    color:#7a7878;
+}
+.other_wechat{
+    display:block;
+    width:40px;
+    height:30px;
+    background:url(../img/other/wx.png) no-repeat -160px -5px;
+    margin:0 auto;
+}
+.my_modal{
+    width:100%;
+    height:905px;
+    position: absolute;
+    left:0;
+    top:0;
+    z-index: 10;
+}
+.modal_bg{
+    width:100%;
+    height:100%;
+    background: #000000;
+    opacity:.3;
+}
+.modal_text{
+    width:350px;
+    height:120px;
+    border-radius:2%;
+    background:white;
+    padding:20px;
+    position: fixed;
+    left:35%;
+    top:150px;
+    position: absolute;
+}
+.modal_text h2,.modal_text p{
+    font-size: 14px;
+    color:#7a7878;
+}
+.modal_text p{
+    margin:30px 0;
+}
+.modal_text .yes{
+    padding:6px 15px;
+    background:#ff4001;
+    color:white;
+    border-radius:5%;
+    position: absolute;
+    right:20px;
+    bottom:20px;
+}
+.modal_text .close{
+    font-size:18px;
+    color:#7a7878;
+    position: absolute;
+    right:20px;
+    top:20px;
+}

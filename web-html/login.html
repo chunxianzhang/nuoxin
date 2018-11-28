@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>诺心登录</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/login.css">
+    <style>[v-cloak]{display:none;}</style>
+</head>
+<body>
+<div id="login">
+    <div class="header">
+        <a href="http://127.0.0.1:3000/index.html">
+            <img src="img/header/logo_new.png">
+        </a>
+    </div>
+    <div class="main">
+        <a href="http://localhost:3000/login.html" class="reload"></a>
+        <div class="login">
+            <div class="login_method">
+                <div class="login_one">
+                    <span class="login_text_color" @click="login-upwd">账号密码登录</span>
+                </div>
+                <div class="login_two">
+                    <span class="login_text" @click="login-smsCode">手机验证登录</span>
+                </div>
+            </div>
+            <div class="login_item" @keyup.13="login">
+                <!-- 账户密码登录 -->
+                <div class="login_one_item">
+                    <div class="login_uname">
+                        <input type="text" class="login_uname_text" placeholder="请输入账号" v-model="uname" maxlength="11" @blur="unameJudge">
+                        <span class="error_message" v-text="uname_message"></span>
+                    </div>
+                    <div class="login_upwd">
+                        <input type="password" class="login_upwd_text" placeholder="请输入密码" v-model="upwd" maxlength="12" @blur="upwdJudge">
+                        <span class="error_message" v-text="upwd_message"></span>
+                    </div>
+                    <div class="login_auth">
+                        <input type="password" class="login_auth_code" placeholder="请输入验证码">
+                        <canvas class="login_auth_code_hint" @click="getAuthCode"></canvas>
+                        <span class="error_message">*请输入验证码</span>
+                    </div>
+                </div>
+                <!-- 手机验证登录 -->
+                <div class="login_two_item">
+                    <div class="login_phone">
+                        <input type="text" class="login_phone_text" placeholder="手机号码">
+                        <span class="error_message">*请输入手机号码</span>
+                    </div>
+                    <div class="login_auth">
+                        <input type="password" class="login_auth_code" placeholder="请输入验证码">
+                        <a href="#" class="login_auth_code_hint"><img src="#" alt="点击刷新"></a>
+                        <span class="error_message">*请输入验证码</span>
+                    </div>
+                    <div class="login_sms">
+                        <input type="password" class="login_sms_code" placeholder="短信验证码">
+                        <span class="login_sms_code_hint">发送验证码</span>
+                        <span class="error_message">*请输入短信验证码</span>
+                    </div>
+                </div>
+                <button class="now_login" :class="active" @click="login">立即登录</button>
+                <div class="account">
+                    <a href="#" class="account_findUpwd">忘记密码</a>
+                    <a href="http://localhost:3000/register.html" class="account_toRegister">立即注册</a>
+                    <span class="account_null">还没有账号？</span>
+                </div>
+                <div class="other">
+                    <div class="other_text">
+                    <p>——————</P>
+                    <P>其他登录方式</P>
+                    <P>——————</p>
+                    </div>
+                    <a href="#" class="other_wechat"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div v-cloak class="my_modal" v-show="modal">
+        <div class="modal_bg"></div>
+        <div class="modal_text">
+            <h2>提示信息</h2>
+            <p v-text="err_message"></p>
+            <a href="#" class="yes" @click="close">确定</a>
+            <a href="#" class="close" @click="close">X</a>
+        </div>
+    </div>
+</div>
+    <div class="footer">
+        <!--客服和微信-->
+        <div class="footer_top">
+        <a href="#" class="footer_top_left">在线客服</a>
+        <a href="#" class="footer_top_right">微信
+            <img src="img/footer/wechat.png">
+        </a>
+        </div>
+        <!--客户电话-->
+        <div class="tel">
+        <span>客服电话：4001-578-578 服务时间（08:30-22:30）</span>
+        </div>
+        <!-- nav列表 -->
+        <div class="footer_nav">
+        <p class="footer_nav_list">
+            <a href="">诺心公告</a>
+            <a href="">关于诺心</a>
+            <a href="">联系我们</a>
+            <a href="">客服服务</a>
+            <a href="">食品经营许可证</a>
+            <a href="">生产许可证</a>
+            <a href="">预付费协议</a>
+            <a href="" class="last">上海工商</a>
+        </p>
+        </div>
+        <!-- 公司 -->
+        <div class="add">
+        <p>诺心食品（上海）有限公司&nbsp;&nbsp;&nbsp;上海徐汇区田林路140号28号楼503室&nbsp;&nbsp;客服邮箱：services@lecake.com&nbsp;&nbsp;公司电话：4001-578-578</p>
+        </div>
+        <!-- 版权所有 -->
+        <div class="copy">
+        <p>copyright&copy;2010-2017诺心lecake.com版权所有&nbsp;沪ICP备10211730</p>
+        </div>
+    </div>
+    <script src="js/axios.min.js"></script>
+    <script src="js/qs.min.js"></script>
+    <script src="js/vue.js"></script>
+    <script src="./js/login.js"></script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+new Vue({
+    el:".header",
+    data:function(){
+        return {
+           signout:true,
+           isLogin:false,
+           uname:"",
+           search_text:"",
+        }
+    },
+    created(){
+        axios.get("http://localhost:3000/user/islogin")
+        .then((res)=>{
+            var res=res.data
+            if(res.ok==0){
+                this.signout=true
+                this.isLogin=false
+            }else{
+                this.signout=false
+                this.isLogin=true
+                this.uname=res.uname
+            }
+        })
+    },
+    methods:{
+        goLogin(){
+            var url=location.href
+            location.href="http://localhost:3000/login.htl?back="+url
+        },
+        signOut(){
+            axios.get("http://localhost:3000/user/signout")
+            .then((res)=>{
+                location.reload(true)
+            })
+        },
+        myIndent(){
+            if(this.isLogin==true){
+                location.href="index.html"
+            }else{
+                location.href="login.html"
+            }
+        },
+        search(){
+            var str=this.search_text
+            str = str.replace(/\s*/g,"");
+            if(str=="")
+            str="雪域"
+            location.href="product-search.html?kw="+str
+        },
+        shoppingCart(){
+            if(this.isLogin==true){
+                location.href="index.html"
+            }else{
+                location.href="login.html"
+            }
+        },
+        navItemOne(){
+            location.href="http://localhost:3000/index.html"
+        },
+        navItemTwo(){
+            location.href="http://localhost:3000/product-cake.html"
+        },
+        navItemThree(){
+            location.href="http://localhost:3000/product-toast.html"
+        },
+        navItemFour(){
+            location.href="http://localhost:3000/product-gift.html"
+        },
+        navItemFive(){
+            location.href="http://localhost:3000/user.html"
+        },
+        CLUB(){},
+        card(){},
+    }
+})

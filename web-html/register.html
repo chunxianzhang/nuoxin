@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>诺心注册</title>
+    <link rel="stylesheet" href="css/register.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/footer.css">
+<body>
+<div id="register">
+    <div class="my_header">
+        <div class="my_header_logo">
+            <span>&nbsp;&nbsp;用户注册</span>
+            <a href="http://localhost:3000/index.html">
+                <img src="img/header/logo_new.png" alt="">
+            </a>
+        </div>
+        <div class="my_header_login">
+            <span>已有诺心账号?&nbsp;</span>
+            <a href="http://localhost:3000/login.html">请登录</a>
+        </div>
+    </div>
+    <div class="main">
+        <div class="register">
+            <div class="input_phone">
+                <input type="text" placeholder="手机号码" maxlength="11" class="input_phone_text" v-model="phone" @blur="phoneJudge">
+                <span class="error_message" v-text="phone_message"></span>
+            </div>
+            <div class="input_pwd">
+                <input type="password" placeholder="6-12位密码" maxlength="12" class="input_pwd_text" v-model="upwd" @blur="upwdJudge">
+                <span class="error_message" v-text="upwd_message"></span>
+            </div>
+            <div class="input_pwd_again">
+                <input type="password" placeholder="确认密码" maxlength="12" class="input_pwd_again_text" v-model="upwdAgain" @blur="upwdAgainJudge">
+                <span class="error_message" v-text="upwdAgain_message"></span>
+            </div>
+            <div class="sliding_block" >
+                <div class="sliding_block_bg" v-text="bg_text"></div>
+                <div :class="btn_bg" @mousedown="slideJudgeDown"  :style=`left:${left};transition:${transition}`></div>
+                <div class="btn_before_bg" :style=`width:${bg_width};transition:${transition}` v-text="bg_success_text"></div>
+                <div class="bg_animation" v-show="is_animate"></div>
+            </div>
+            <div class="sliding_block_err">
+                <span class="error_message" v-text="slide_message"></span>
+            </div>
+            <div class="auth_code">
+                <input type="text" placeholder="手机验证码" class="auth_code_input">
+                <a href="#" class="auth_code_hint">发送验证码</a>
+                <span class="error_message" v-text="code_message"></span>
+            </div>
+            <button class="register_now" @click="register">立即注册</button>
+            <div class="read_agreement">
+                <label for="agree" ><input type="checkbox" id="agree" v-model="isChecked" @click="isRead">&nbsp;我已阅读并同意</label>
+                <a href="#" class="read_agreement_text">《诺心lecake用户服务协议》</a>
+                <span class=error_message v-text="agreement_message"></span>
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="footer">
+        <!--客服和微信-->
+        <div class="footer_top">
+            <a href="#" class="footer_top_left">在线客服</a>
+            <a href="#" class="footer_top_right">微信
+            <img src="img/footer/wechat.png">
+             </a>
+        </div>
+        <!--客户电话-->
+        <div class="tel">
+            <span>客服电话：4001-578-578 服务时间（08:30-22:30）</span>
+        </div>
+         <!-- nav列表 -->
+        <div class="footer_nav">
+            <p class="footer_nav_list">
+                <a href="">诺心公告</a>
+                <a href="">关于诺心</a>
+                <a href="">联系我们</a>
+                <a href="">客服服务</a>
+                <a href="">食品经营许可证</a>
+                <a href="">生产许可证</a>
+                <a href="">预付费协议</a>
+                <a href="" class="last">上海工商</a>
+            </p>
+        </div>
+        <!-- 公司 -->
+        <div class="add">
+            <p>诺心食品（上海）有限公司&nbsp;&nbsp;&nbsp;上海徐汇区田林路140号28号楼503室&nbsp;&nbsp;客服邮箱：services@lecake.com&nbsp;&nbsp;公司电话：4001-578-578</p>
+        </div>
+        <!-- 版权所有 -->
+        <div class="copy">
+            <p>copyright&copy;2010-2017诺心lecake.com版权所有&nbsp;沪ICP备10211730</p>
+        </div>
+    </div>
+    <script src="js/axios.min.js"></script>
+    <script src="js/qs.min.js"></script>
+    <script src="js/vue.js"></script>
+    <script src="./js/register.js"></script>
+</body>
+</html>

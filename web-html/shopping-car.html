@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>诺心蛋糕店</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/shopping-car.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <style>[v-cloak]{display:none;}</style>
+</head>
+<body>
+    <div class="article">
+        <div class="header">
+            <!--登录/注册-->
+            <div class=header_top>
+                <div class=header_top_right>
+                <div v-if="signout" class="notLogin">
+                    <a href="#" @click.prevent="goLogin">登录</a>
+                    <span>/</span>
+                    <a href="http://localhost:3000/register.html">注册</a>
+                </div>
+                <div v-if="isLogin" class="isLogin">
+                    <span>欢迎您，</span>
+                    <span v-text="uname"></span>
+                    <a href="#" class="signout" @click.prevent="signOut">退出</a>
+                    <a href="#" @click.prevent="myIndent">我的订单</a>
+                </div>
+                <p class="header_top_wechat">
+                    <img src="img/header/wechat.png" class="top_wechat_img">
+                    微信
+                </p>
+                </div>
+            </div>
+            <!--定位和logo-->
+            <div class="header_middle">
+                <div class="header_location">
+                <a href="#" class="location">
+                    <span class="one">成都</span>
+                    <span class="two">查询地址是否可以配送</span>
+                </a>
+                </div>
+                <div class="header_logo">
+                <img src="img/header/logo_new.png">
+                </div>
+                <div class="header_search">
+                    <input type="text" placeholder="雪域牛乳芝士" class="header_search_input" v-model="search_text" @keyup.13="search">
+                    <a href="#" class="one" @click.prevent="search"></a>
+                    <a href="#" class="two" @click.prevent="shoppingCart">
+                        <span :class="carCount==0?'hide':'showCount'" v-text="carCount"></span>
+                    </a>
+                </div>
+            </div>
+            <!--nav-->
+            <nav>
+                <ul class="nav_list">
+                <li>
+                    <a href="#" class="nav_list_first" @click.prevent="navItemOne">首页</a>
+                </li>
+                <li>
+                    <a href="#" class="nav_list_two" @click.prevent="navItemTwo">蛋糕</a>
+                </li>
+                <li>
+                    <a href="#" class="nav_list_three" @click.prevent="navItemThree">吐司</a>
+                </li>
+                <li>
+                    <a href="#" class="nav_list_four" @click.prevent="navItemFour">礼品</a>
+                </li>
+                <li>
+                    <div class="nav_area">
+                    <a href="#">企业专区</a>
+                    <ul class="nav_area_list">
+                        <li><a href="#">企业采购</a></li>
+                        <li><a href="#">大客户区</a></li>
+                        <li><a href="#">福利券区</a></li>
+                        <li><a href="#">合作专区</a></li>
+                        <li><a href="#">小食盒区</a></li>
+                    </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="nav_user">
+                    <a href="#" @click.prevent="navItemFive">我的诺心</a>
+                    <ul class="nav_user_list">
+                        <li><a href="#" @click.prevent="CLUB">LECLUB</a></li>
+                        <li><a href="#" @click.prevent="myIndent">我的订单</a></li>
+                        <li><a href="#">找回密码</a></li>
+                        <li><a href="#" @click.prevent="card">礼卡专区</a></li>
+                    </ul>
+                    </div>
+                </li>
+                </ul>
+            </nav>
+        </div>
+        <!-- 购物车列表 -->
+        <div v-cloak v-show="loadCar" class="shoppingCart">
+            <h1 v-text=`您的购物车（${carCount}）`></h1>
+            <div :class="carCount==0?'':'hide'">
+                <div class="no_count">
+                    <img src="img/product/no_count.png">
+                </div>
+                <p>您还没有选购商品，
+                    <a href="http://localhost:3000/product-cake.html">去逛逛!</a>
+                </p>
+            </div>
+            <div :class="carCount==0?'hide':''">
+                <div class="userCake" v-for="item in userCake">
+                    <div class="checkCake">
+                        <a href="#" class="isChecked" :class="item.isChecked==1?'checked':'nochecked'" @click.prevent="checked(item.goods_id)"></a>
+                    </div>
+                    <div class="cake_pic">
+                        <a :href="item.skip_url">
+                            <img :src="item.img_url">
+                        </a>
+                    </div>
+                    <div class="userCake_details">
+                        <p v-text="item.title"></p>
+                        <p>2-4人食</p>
+                        <p v-text=`单价：￥${item.price}`></p>
+                        <p v-text="item.wishHint" :class="item.wishHint=='填写生日祝福'?'':'wish_active'" @click="showWishList(item.goods_id)" @mouseleave="hideWishList(item.goods_id)"></p>
+                        <div v-cloak class="wish_list" :class="item.showWish==0?'hide':''" @mouseleave="hideWishList(item.goods_id)" @mouseenter="a(item.goods_id)">
+                            <p v-text="wishList.one"  @click.prevent="getWish(item.goods_id,1)"></p>
+                            <p v-text="wishList.two" @click.prevent="getWish(item.goods_id,2)"></p>
+                            <p v-text="wishList.three" @click.prevent="getWish(item.goods_id,3)"></p>
+                            <input type="text" placeholder="自定义" maxlength="16" v-model="item.userWish" @keyup.13.prevent="getWish(item.goods_id,4)">
+                            <input type="button" value="确定" @click.prevent="getWish(item.goods_id,4)">
+                            <p>(最多14个汉字或者28个英文字母）</p>
+                        </div>
+                    </div>
+                    <div class="cakeTotal">
+                        <p v-text="'小计：￥'+item.price*item.count"></p>
+                        <div class="cake_count">
+                            <a href="#" @click.prevent="lessenCount(item.goods_id)"></a>
+                            <input type="text" :value="item.count">
+                            <a href="#" @click.prevent="addCount(item.goods_id)"></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="allTotal">
+                    <div class="allTotalCheck">
+                        <a href="#" class="isChecked" :class="isAllCheck==1?'checked':'nochecked'" @click.prevent="AllChecked"></a>
+                        <p @click.prevent="AllChecked">全选</p>
+                        <p @click.prevent="deleteAllGoods">删除</p>
+                    </div>
+                    <div class="allTotal_count">
+                        <p>共 <span v-text="carCount"></span> 件商品，已选择 <span v-text="checkedCount"></span> 件</p>
+                        <p>应付(不含运费)：￥<span class="allPrice" v-text="allPrice"></span></p>
+                    </div>
+                    <button>结算</button>
+                </div>
+            </div>
+            <div class="accessories">
+                <h1>精品配件</h1>
+                <div class="acc_content">
+                    <div class="acc_left" :class="accLeft==0?'disabled':''">
+                        <a href="#" @click.prevent="accLeftShift"></a>
+                    </div>
+                    <div class="acc_group">
+                        <ul class="acc_list" :style=`transform:translateX(${listLeft}px)`>
+                            <li v-for="item of accessoriesList">
+                                <div class="acc_item">
+                                    <img :src="item.img_url">
+                                    <p v-text="item.aname"></p>
+                                    <p v-text="item.price"></p>
+                                    <a href="#"></a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="acc_right" :class="accright==0?'disabled':''">
+                        <a href="#" @click="accRightShift"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 模态框 -->
+        <div v-cloak class="addCart_bg" v-show="cartBg"></div>
+        <div v-cloak class="addCartSuccess" v-show="success">
+            <div class="addCart_hint">
+                <p>提示信息</p>
+                <p @click="closeCart2">X</p>
+            </div>
+            <div class="cartMessage">
+                <p>确定删除？</p>
+            </div>
+            <div class="cartSuccess">
+                <button @click="deleteGoods">确定</button>
+                <button @click="closeCart2">取消</button>
+            </div>
+        </div>
+        <div v-cloak v-show="loadFooter" class="footer">
+            <!--客服和微信-->
+            <div class="footer_top">
+            <a href="#" class="footer_top_left">在线客服</a>
+            <a href="#" class="footer_top_right">微信
+                <img src="img/footer/wechat.png">
+            </a>
+            </div>
+            <!--客户电话-->
+            <div class="tel">
+            <span>客服电话：4001-578-578 服务时间（08:30-22:30）</span>
+            </div>
+            <!-- nav列表 -->
+            <div class="footer_nav">
+            <p class="footer_nav_list">
+                <a href="">诺心公告</a>
+                <a href="">关于诺心</a>
+                <a href="">联系我们</a>
+                <a href="">客服服务</a>
+                <a href="">食品经营许可证</a>
+                <a href="">生产许可证</a>
+                <a href="">预付费协议</a>
+                <a href="" class="last">上海工商</a>
+            </p>
+            </div>
+            <!-- 公司 -->
+            <div class="add">
+            <p>诺心食品（上海）有限公司&nbsp;&nbsp;&nbsp;上海徐汇区田林路140号28号楼503室&nbsp;&nbsp;客服邮箱：services@lecake.com&nbsp;&nbsp;公司电话：4001-578-578</p>
+            </div>
+            <!-- 版权所有 -->
+            <div class="copy">
+            <p>copyright&copy;2010-2017诺心lecake.com版权所有&nbsp;沪ICP备10211730</p>
+            </div>
+        </div>
+    </div>
+    <script src="js/axios.min.js"></script>
+    <script src="js/qs.min.js"></script>
+    <script src="js/vue.js"></script>
+    <script src="./js/shopping-car.js"></script>
+</body>
+</html>

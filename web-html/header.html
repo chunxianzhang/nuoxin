@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>诺心蛋糕店</title>
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/base.css">
+</head>
+<body>
+    <div class="header">
+      <!--登录/注册-->
+      <div class=header_top>
+        <div class=header_top_right>
+          <div v-if="signout" class="notLogin">
+            <a href="#" @click.prevent="goLogin">登录</a>
+            <span>/</span>
+            <a href="http://localhost:3000/register.html">注册</a>
+          </div>
+          <div v-if="isLogin" class="isLogin">
+            <span>欢迎您，</span>
+            <span v-text="uname"></span>
+            <a href="#" class="signout" @click.prevent="signOut">退出</a>
+            <a href="#" @click.prevent="myIndent">我的订单</a>
+          </div>
+          <p class="header_top_wechat">
+            <img src="img/header/wechat.png" class="top_wechat_img">
+            微信
+          </p>
+        </div>
+      </div>
+      <!--定位和logo-->
+      <div class="header_middle">
+        <div class="header_location">
+          <a href="#" class="location">
+            <span class="one">成都</span>
+            <span class="two">查询地址是否可以配送</span>
+          </a>
+        </div>
+        <div class="header_logo">
+          <img src="img/header/logo_new.png">
+        </div>
+        <div class="header_search">
+          <input type="text" placeholder="雪域牛乳芝士" class="header_search_input" v-model="search_text" @keyup.13="search">
+          <a href="#" class="one" @click.prevent="search"></a>
+          <a href="#" class="two" @click.prevent="shoppingCart"></a>
+        </div>
+      </div>
+      <!--nav-->
+      <nav>
+        <ul class="nav_list">
+          <li>
+            <a href="#" class="nav_list_first" @click.prevent="navItemOne">首页</a>
+          </li>
+          <li>
+            <a href="#" class="nav_list_two" @click.prevent="navItemTwo">蛋糕</a>
+          </li>
+          <li>
+            <a href="#" class="nav_list_three" @click.prevent="navItemThree">吐司</a>
+          </li>
+          <li>
+            <a href="#" class="nav_list_four" @click.prevent="navItemFour">礼品</a>
+          </li>
+          <li>
+            <div class="nav_area">
+              <a href="#">企业专区</a>
+              <ul class="nav_area_list">
+                <li><a href="#">企业采购</a></li>
+                <li><a href="#">大客户区</a></li>
+                <li><a href="#">福利券区</a></li>
+                <li><a href="#">合作专区</a></li>
+                <li><a href="#">小食盒区</a></li>
+             </ul>
+            </div>
+          </li>
+          <li>
+            <div class="nav_user">
+              <a href="#" @click.prevent="navItemFive">我的诺心</a>
+              <ul class="nav_user_list">
+                <li><a href="#" @click.prevent="CLUB">LECLUB</a></li>
+                <li><a href="#" @click.prevent="myIndent">我的订单</a></li>
+                <li><a href="#">找回密码</a></li>
+                <li><a href="#" @click.prevent="card">礼卡专区</a></li>
+             </ul>
+            </div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <script src="js/axios.min.js"></script>
+    <script src="js/qs.min.js"></script>
+    <script src="js/vue.js"></script>
+    <script src="./js/header.js"></script>
+</body>
+</html>

@@ -1,0 +1,198 @@
+.header_top:after{
+    content:"";
+    display:block;
+    clear:both;
+}
+.header_top_right{
+    float:right;
+    margin-right:12%;
+    padding:5px 0;
+    position: relative;
+}
+.notLogin,.isLogin{
+    position:absolute;
+    right:50%;
+}
+.isLogin{
+    width:300px;
+}
+.notLogin{
+    width:100px;
+}
+.isLogin span{
+    color:#3e3e3e;
+    font-size:0.8rem;
+}
+.isLogin .signout{
+    color:gray;
+    margin:0 50px 0 10px;
+}
+.isLogin .signout:hover{
+    color:gray;
+}
+.header_top_right a:hover,.header_top_right p:hover,.location .one:hover{
+    color:pink;
+}
+.header_top_right a,.header_top_right p,.location{
+    font-size:0.8rem;
+}
+.header_top_wechat{
+    margin-left:60px;
+    position:relative;
+    cursor: pointer;
+    padding:2px;
+    color:#3e3e3e;
+}
+.header_top_wechat:before{
+    content:"";
+    position:absolute;
+    left:-25px;
+    top:1px;
+    width:20px;
+    height:20px;
+    background:url(../img/other/icon1.png) no-repeat;
+    background-position: -330px -251px;
+}
+.top_wechat_img{
+    position:absolute;
+    right:-55px;
+    top:25px;
+    display:none;
+    z-index: 3;
+}
+.header_top_wechat:hover .top_wechat_img{
+    display:block;
+}
+.header_middle{
+    display:flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+    padding:30px 0;
+}
+.header_location{
+    margin-left:15%;
+    position:relative;
+}
+.location:before{
+    content:"";
+    position:absolute;
+    left:-25px;
+    top:2px;
+    width:20px;
+    height:20px;
+    background:url(../img/other/icon1.png) no-repeat;
+    background-position:-289px -210px;
+}
+.location .two{
+    color:gray;
+    margin-left:5px;
+}
+.header_search{
+    margin-right:15%;
+    position: relative;
+}
+.header_search_input{
+    border:1px solid transparent;
+    border-bottom:1px solid #000;
+    outline:none;
+    width:200px;
+}
+.header_search .one{
+    position:absolute;
+    right:-30px;
+    top:1px;
+    width:20px;
+    height:20px;
+    background:url(../img/other/icon1.png) no-repeat;
+    background-position:-330px -210px;
+}
+.header_search .two{
+    position:absolute;
+    right:-70px;
+    top:1px;
+    width:40px;
+    height:20px;
+    background:url(../img/other/icon1.png) no-repeat;
+    background-position:-230px -250px;
+}
+.header_search .two .showCount{
+    position: absolute;
+    left:32px;
+    top:-8px;
+    display:block;
+    width:15px;
+    height:15px;
+    border-radius:50%;
+    background:#ff4001;
+    line-height:15px;
+    text-align: center;
+    font-size:12px;
+    color:white;
+}
+.nav_list{
+    width:45%;
+    padding-bottom:20px;
+    margin:0 auto;
+    display:flex;
+    flex-flow:row nowrap;
+    justify-content: space-around;
+    
+}
+.nav_list li{
+    position:relative;
+}
+.nav_list li a{
+    font-size:16px;
+}
+.nav_list_first:hover, .nav_list_two:hover, .nav_list_three:hover,.nav_list_four:hover{
+    color:pink;
+}
+.nav_active:before{
+    content:"";
+    width:20px;
+    height:20px;
+    position:absolute;
+    left:-25px;
+    top:-1px;
+    background:url(../img/other/aixin.png) no-repeat;
+    background-position:-55px -36px;
+}
+.nav_active:after{
+    content:"";
+    position:absolute;
+    top:38px;
+    left:-35px;
+    width:100px;
+    height:2px;
+    background:pink;
+}
+.nav_area_list,.nav_user_list{
+    width:200%;
+    position: absolute;
+    left:-45%;
+    top:33px;
+    display:none;
+    text-align:center;
+    box-shadow: 0 0 10px rgba(222, 222, 222, 0.6);
+    background: white;
+    z-index: 2;
+}
+.nav_area_list li,.nav_user_list li{
+    margin:15px 0;
+}
+.nav_area:hover .nav_area_list,.nav_user:hover .nav_user_list{
+    display:block;
+}
+.nav_area:hover:before,.nav_user:hover:before{
+    content:"";
+    width:220%;
+    height:20px;
+    position: absolute;
+    background:white;
+    left:-50%;
+    top:18px;
+    z-index: 3;
+}
+.header{
+    border-bottom:1px solid lightgray;
+}
